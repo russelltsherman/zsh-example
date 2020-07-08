@@ -1,0 +1,39 @@
+#!/usr/bin/env variant
+# vim:set ft=yaml
+
+mixins:
+  # Exit on all errors
+  exit_on_errors: &exit_on_errors
+    set -e
+
+  # Default runner
+  runner: &runner
+    command: "bash"
+    args: ["-ex", "-c"]
+
+tasks:
+  update:
+    description: "Rebuild man pages and reindex"
+    steps:
+    - task: "build"
+    - task: "index"
+
+  build:
+    # Build man pages
+    description: "Build man pages"
+    script:
+    - *exit_on_errors
+    - |
+        echo -e "build index:\n"
+
+  index:
+    description: "Index man pages"
+    script:
+    - *exit_on_errors
+    - echo -e "show topics index\n"
+
+  list:
+    description: "List all available man pages"
+    script:
+    - *exit_on_errors
+    - echo -e "list topics\n"
